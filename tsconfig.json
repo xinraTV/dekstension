@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "noEmit": true, // Nur Type Checking, das Transpilieren macht esbuild
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
