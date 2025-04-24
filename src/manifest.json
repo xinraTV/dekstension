@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "dekstension",
+  "description": "Extended functionality for Archidekt",
+  "version": "__VERSION__",
+  "icons": {
+    "64": "icons/icon64.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://archidekt.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "permissions": ["scripting", "*://archidekt.com/*"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dekstension@xinra.tv",
+      "update_url": "https://TODO.de/update.json"
+    }
+  }
+}
