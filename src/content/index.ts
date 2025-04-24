@@ -1,15 +1,12 @@
 import { applyCustomCardData } from './custom-cards'
+import { readData } from './io'
 import { Data } from './model'
 import './styles.css'
 import { resetAfterHotReload } from './utils'
 
 resetAfterHotReload()
 
-const data: Data = {
-  cards: {
-    'Hans Eriksson': { name: 'Erik' },
-  },
-}
+const data = readData()
 
 function refresh() {
   applyCustomCardData(data.cards)
