@@ -5,6 +5,16 @@ export function fromHtml(html: string) {
   return result[0]
 }
 
+export function getByText<T = HTMLElement>(
+  selector: string,
+  text: string,
+  lenient = false,
+) {
+  return Array.from(document.querySelectorAll(selector)).find((e) =>
+    lenient ? e.textContent?.includes(text) : e.textContent === text,
+  ) as T | undefined
+}
+
 export function resetAfterHotReload() {
   document.querySelectorAll('.dx').forEach((el) => el.remove())
 }
