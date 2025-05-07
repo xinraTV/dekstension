@@ -4,20 +4,26 @@ import { Data } from './model'
 import './styles.css'
 import { resetAfterHotReload } from './utils'
 
-resetAfterHotReload()
+async function main() {
+  resetAfterHotReload()
 
-const data = readData()
+  console.log('Dekstension content script loaded', document.cookie)
+  const data = (await readData()) || { cards: {} }
+  console.log('Dekstension data loaded:', data)
 
-function refresh() {
-  applyCustomCardData(data.cards)
-  addCustomCardUi(data.cards)
+  function refresh() {
+    applyCustomCardData(data.cards)
+    addCustomCardUi(data)
+  }
+
+  refresh()
+
+  const observer = new MutationObserver(refresh)
+  observer.observe(document.getElementById('__next')!, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  })
 }
 
-refresh()
-
-const observer = new MutationObserver(refresh)
-observer.observe(document.getElementById('__next')!, {
-  attributes: true,
-  childList: true,
-  subtree: true,
-})
+main()

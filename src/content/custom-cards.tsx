@@ -2,9 +2,10 @@ import { CardName, Data } from './model'
 import { fromHtml } from './utils'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
+import { writeData } from './io'
 
-export function addCustomCardUi(cardsData: Data['cards']) {
+export function addCustomCardUi(data: Data) {
   const cardDetailsOverlay = document.querySelector(
     'div[class^=cardDetailsOverlay_content]',
   )
@@ -16,7 +17,7 @@ export function addCustomCardUi(cardsData: Data['cards']) {
   const cardName = cardDetailsOverlay.querySelector(
     'h3[class^=cardDetailsOverlay_title]',
   )?.textContent!
-  const cardData = cardsData[cardName] || {}
+  const cardData = data.cards[cardName] || {}
 
   const containerClass = parent
     .querySelector('div[class^=cardForm_prettyBox]')!
@@ -25,12 +26,30 @@ export function addCustomCardUi(cardsData: Data['cards']) {
   const container = fromHtml(`<div class="dx ${containerClass}"></div>`)
   parent.appendChild(container)
 
+  const setName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value
+    const newData = {
+      ...data,
+      cards: {
+        ...data.cards,
+        [cardName]: { ...cardData, name: newName },
+      },
+    }
+    console.log('New data:', newData)
+    writeData(newData)
+  }
+
   const root = createRoot(container as HTMLElement)
   root.render(
     <div>
       <label>Dekstension</label>
       <p>
         Custom name: {cardData.name} <Button size="small">Edit</Button>{' '}
+        <Input
+          placeholder="input with clear icon"
+          onBlur={setName}
+          allowClear
+        />
         <Button size="small">Remove</Button>
       </p>
       <p>

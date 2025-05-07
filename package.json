@@ -10,7 +10,7 @@
     "watch:esbuild": "npm run build:esbuild -- --watch --sourcemap",
     "watch:web-ext": "web-ext run --firefox-profile xinra --start-url=https://archidekt.com/decks/12719694/dekstension_example",
     "build:resources": "node copy-resources.mjs",
-    "build:esbuild": "esbuild src/**/index.ts --entry-names=[dir] --outbase=src --bundle --minify --target=firefox100 --outdir=dist",
+    "build:esbuild": "esbuild src/**/index.ts --entry-names=[dir] --outbase=src --bundle --target=firefox100 --outdir=dist",
     "build:web-ext": "web-ext build",
     "test": "tsc && web-ext lint",
     "deploy": "node deploy.js",
