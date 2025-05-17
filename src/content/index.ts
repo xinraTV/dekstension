@@ -8,17 +8,19 @@ async function main() {
   resetAfterHotReload()
 
   console.log('Dekstension content script loaded', document.cookie)
-  const data = (await readData()) || { cards: {} }
+  const data: Data = (await readData()) || { cards: {} }
   console.log('Dekstension data loaded:', data)
 
-  function refresh() {
+  const refresh = () => {
     applyCustomCardData(data.cards)
     addCustomCardUi(data)
   }
 
+  const refreshNextTick = () => setTimeout(refresh, 0)
+
   refresh()
 
-  const observer = new MutationObserver(refresh)
+  const observer = new MutationObserver(refreshNextTick)
   observer.observe(document.getElementById('__next')!, {
     attributes: true,
     childList: true,

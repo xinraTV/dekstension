@@ -6,4 +6,5 @@ export type CardName = string
 
 export interface CustomCardData {
   name?: CardName
+  img?: string
 }
