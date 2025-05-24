@@ -16,5 +16,23 @@ export function getByText<T = HTMLElement>(
 }
 
 export function resetAfterHotReload() {
-  document.querySelectorAll('.dx').forEach((el) => el.remove())
+  document
+    .querySelectorAll('.dx, .ant-modal-root, .ant-popover')
+    .forEach((el) => el.remove())
+}
+
+export function getCookie(cname: string) {
+  let name = cname + '='
+  let decodedCookie = decodeURIComponent(document.cookie)
+  let ca = decodedCookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return null
 }
