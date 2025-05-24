@@ -19,20 +19,16 @@ export const useStore = create<AppState>((set) => ({
     set({ data: (await readData()) || EMPTY_DATA })
   },
   setCardData: async (name: CardName, cardData: CustomCardData) => {
-    try {
-      const data = (await readData()) || EMPTY_DATA // re-read to avoid concurrency issues
+    const data = (await readData()) || EMPTY_DATA // re-read to avoid concurrency issues
 
-      if (cardData.name || cardData.img) {
-        data.cards[name] = cardData
-      } else {
-        delete data.cards[name]
-      }
-
-      await writeData(data)
-
-      set({ data })
-    } catch (e) {
-      message.error('Saving data failed: ' + e)
+    if (cardData.name || cardData.img) {
+      data.cards[name] = cardData
+    } else {
+      delete data.cards[name]
     }
+
+    await writeData(data)
+
+    set({ data })
   },
 }))

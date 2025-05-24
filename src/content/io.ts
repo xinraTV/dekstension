@@ -57,7 +57,9 @@ export async function writeData(data: Data) {
   const serializedData = `[DEKSTENSION_DATA]${btoa(JSON.stringify(data))}[/DEKSTENSION_DATA]`
   if (originalDescription && originalDescription.match(DATA_PATTERN)) {
     console.log('Updating existing description')
-    writeDescription(originalDescription.replace(DATA_PATTERN, serializedData))
+    await writeDescription(
+      originalDescription.replace(DATA_PATTERN, serializedData),
+    )
   } else {
     console.log('Creating new description')
     const parsedDescription = originalDescription
@@ -66,7 +68,7 @@ export async function writeData(data: Data) {
     parsedDescription.ops.push({
       insert: serializedData,
     })
-    writeDescription(JSON.stringify(parsedDescription))
+    await writeDescription(JSON.stringify(parsedDescription))
   }
 }
 

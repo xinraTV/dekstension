@@ -16,7 +16,9 @@ export function getByText<T = HTMLElement>(
 }
 
 export function resetAfterHotReload() {
-  document.querySelectorAll('.dx, .ant-modal-root').forEach((el) => el.remove())
+  document
+    .querySelectorAll('.dx, .ant-modal-root, .ant-popover')
+    .forEach((el) => el.remove())
 }
 
 export function getCookie(cname: string) {
